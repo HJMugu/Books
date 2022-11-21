@@ -5,6 +5,7 @@ const authorInput = document.querySelector('#autor');
 const isbnInput = document.querySelector('#isbn');
 const nimekiri = document.querySelector('#keha');
 
+
 //siin on vajalikud sündmused
 form.addEventListener('submit', addBook);
 nimekiri.addEventListener('click', deleteBook);
@@ -23,6 +24,10 @@ function addBook(e){
     const author = authorInput.value;
     const isbn = isbnInput.value;
     const link = document.createElement('a');
+    const book = [];
+    book[0] = title
+    book[1] = author
+    book[2] = isbn
     link.setAttribute('href', '#');
     link.appendChild(document.createTextNode('X'));
 
@@ -47,7 +52,28 @@ function addBook(e){
 
 
     e.preventDefault();
+    addBookToLocalStorage(book)
+
+
 
 }
+
+///add book to local storage function
+
+function addBookToLocalStorage(book){
+    let books;
+    if(localStorage.getItem('books') === null)  {
+        books = [];
+    }  else {
+        books = JSON.parse(localStorage.getItem('books'));
+    }
+
+    books.push(book);
+    localStorage.setItem('books', JSON.stringify(books));
+    console.log(books)
+}
+
+
+
 
 ////
