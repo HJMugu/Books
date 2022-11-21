@@ -9,6 +9,52 @@ const nimekiri = document.querySelector('#keha');
 //siin on vajalikud sündmused
 form.addEventListener('submit', addBook);
 nimekiri.addEventListener('click', deleteBook);
+document.addEventListener('DOMContentLoaded', getBooksFromLS);
+
+//siin on getBooksFromLS funktsioon
+
+function getBooksFromLS(event){
+    let books;
+    if(localStorage.getItem('books') === null)  {
+        books = [];
+    }  else {
+        books = JSON.parse(localStorage.getItem('books'));
+    }
+
+
+    books.forEach(function (book){
+
+        const title = book[0];
+        const author = book[1];
+        const isbn = book[2];
+        const link = document.createElement('a');
+
+
+        link.setAttribute('href', '#');
+        link.appendChild(document.createTextNode('X'));
+
+
+        const table = document.getElementById("keha");
+        const row = table.insertRow(0);
+        const cell1 = row.insertCell(0);
+        const cell2 = row.insertCell(1);
+        const cell3 = row.insertCell(2);
+        const cell4 = row.insertCell(3);
+
+
+        cell1.innerHTML = title;
+        cell2.innerHTML = author;
+        cell3.innerHTML = isbn;
+        cell4.appendChild(link);
+
+
+
+
+    })
+
+}
+
+
 
 //siit algab kustutusfunktsioon
 function deleteBook(e){
@@ -22,6 +68,8 @@ function deleteBook(e){
 
 }
 
+
+//siit algab delete book from LS
 function deleteBookFromLocalStorage(book){
 
     let books;
