@@ -14,7 +14,31 @@ nimekiri.addEventListener('click', deleteBook);
 function deleteBook(e){
     if(e.target.textContent === "X"){
         e.target.parentElement.parentElement.remove();
+
+        book = e.target.parentElement.parentElement.firstChild.textContent;
+
+        deleteBookFromLocalStorage(book);
     }
+
+}
+
+function deleteBookFromLocalStorage(book){
+
+    let books;
+    if(localStorage.getItem('books') === null)  {
+        books = [];
+    }  else {
+        books = JSON.parse(localStorage.getItem('books'));
+    }
+
+
+
+    books.forEach(function (booksElement, index){
+        if(booksElement.firstElementChild === book[0].textContent){
+            books.splice(index, 1);
+        }
+    })
+    localStorage.setItem('books', JSON.stringify(books));
 
 }
 //
@@ -70,7 +94,7 @@ function addBookToLocalStorage(book){
 
     books.push(book);
     localStorage.setItem('books', JSON.stringify(books));
-    console.log(books)
+
 }
 
 
